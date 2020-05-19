@@ -5,7 +5,7 @@ using System.Text;
 namespace ResumeBuilderLib.Elements
 {
     /// <summary>
-    /// abstract class for ResumeContainer
+    /// abstract class
     /// </summary>
     public abstract class ElementDocument
     {
