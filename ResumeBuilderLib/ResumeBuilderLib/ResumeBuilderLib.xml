@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ResumeBuilderLib</name>
+    </assembly>
+    <members>
+        <member name="T:ResumeBuilderLib.Elements.ElementDocument">
+            <summary>
+            abstract class for ResumeContainer
+            </summary>
+        </member>
+        <member name="T:ResumeBuilderLib.Templates.ITemplate">
+            <summary>
+            template for document pdf
+            (template also contains ElementDocument objects)
+            </summary>
+        </member>
+        <member name="M:ResumeBuilderLib.Templates.ITemplate.GetElements">
+            <summary>
+            get pdf itext package elements
+            </summary>
+            <returns>elements to PDFBuilder</returns>
+        </member>
+    </members>
+</doc>
