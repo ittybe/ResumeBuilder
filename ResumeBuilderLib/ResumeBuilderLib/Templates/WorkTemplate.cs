@@ -1,4 +1,6 @@
-﻿using iText.IO.Image;
+﻿using iText.IO.Font;
+using iText.IO.Font.Constants;
+using iText.IO.Image;
 using iText.Kernel.Font;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -12,9 +14,9 @@ namespace ResumeBuilderLib.Templates
     [Serializable]
     public class WorkTemplate : ITemplate
     {
-        public PdfFont Font { get; set; }
+        public PdfFont Font { get; set; } = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
 
-        public float FontSize { get; set; }
+        public float FontSize { get; set; } = 16;
 
         public InfoBlockDocument Experience { get; set; }
 
@@ -109,6 +111,7 @@ namespace ResumeBuilderLib.Templates
         {
             List<IBlockElement> result = new List<IBlockElement>();
             float nameScale = 1.8f;
+            
             result.Add(new Paragraph(Name.Text).SetFont(Font).SetFontSize(FontSize * nameScale));
             return result.ToArray();
         }
