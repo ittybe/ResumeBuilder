@@ -49,7 +49,7 @@ namespace ResumeBuilderTests
 
             workTemplate.Birthday = new ResumeBuilderLib.Elements.TextDocument()
             {
-                Text = DateTime.Now.ToLongDateString()
+                Text = DateTime.Now.ToString()
             };
 
             workTemplate.Name = new ResumeBuilderLib.Elements.TextDocument()
@@ -62,6 +62,7 @@ namespace ResumeBuilderTests
                 Filepath = @"C:\Users\Lenovo\OneDrive\Pictures\Saved Pictures\aqua_(konosuba)1.jpg"
             };
 
+            workTemplate.FontSize = 16;
 
             PDFBuilder builder = new PDFBuilder();
             builder.Build(workTemplate, "text.pdf");
