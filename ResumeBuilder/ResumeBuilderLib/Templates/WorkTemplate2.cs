@@ -11,6 +11,7 @@ using System.Text;
 
 namespace ResumeBuilderLib.Templates
 {
+    [Serializable]
     public class WorkTemplate2 : ITemplate
     {
         public PdfFont Font { get; set; } = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
