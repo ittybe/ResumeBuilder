@@ -7,6 +7,7 @@ namespace ResumeBuilderLib.Elements
     /// <summary>
     /// abstract class
     /// </summary>
+    [Serializable]
     public abstract class ElementDocument
     {
     }
