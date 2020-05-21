@@ -7,6 +7,7 @@ namespace ResumeBuilderLib.Elements
     /// <summary>
     /// info block format list 
     /// </summary>
+    [Serializable]
     public class InfoBlockDocument : ElementDocument
     {
         /// <summary>

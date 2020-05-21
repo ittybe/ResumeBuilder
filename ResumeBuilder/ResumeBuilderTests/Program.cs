@@ -8,6 +8,7 @@ using ResumeBuilderLib;
 using ResumeBuilderLib.Building;
 using ResumeBuilderLib.Templates;
 
+
 namespace ResumeBuilderTests
 {
     class Program
@@ -24,7 +25,6 @@ namespace ResumeBuilderTests
             //document.Add();
             //AreaBreak
             WorkTemplate2 workTemplate = new WorkTemplate2();
-            workTemplate.Font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
             byte[] bytes = Encoding.Default.GetBytes("something");
             
             workTemplate.Experience = new ResumeBuilderLib.Elements.InfoBlockDocument()
@@ -77,6 +77,7 @@ namespace ResumeBuilderTests
 
             PDFBuilder builder = new PDFBuilder();
             builder.Build(workTemplate, "text.pdf");
+
         }
     }
 }

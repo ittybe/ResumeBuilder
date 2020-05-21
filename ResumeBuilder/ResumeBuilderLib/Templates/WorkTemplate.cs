@@ -14,10 +14,22 @@ namespace ResumeBuilderLib.Templates
     [Serializable]
     public class WorkTemplate : ITemplate
     {
-        public PdfFont Font { get; set; } = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+        [NonSerialized]
+        private PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+        private PdfFont Font { get { return font; } set { font = value; } }
+        //private PdfFont Font { get; set; } = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
 
         public float FontSize { get; set; } = 16;
 
+        public WorkTemplate() 
+        {
+            Experience = new InfoBlockDocument();
+            ProfileImage = new ImageDocument();
+            Name = new TextDocument();
+            ContactInfo = new InfoBlockDocument();
+            Birthday = new TextDocument();
+        }
+        
         public InfoBlockDocument Experience { get; set; }
 
         public ImageDocument ProfileImage { get; set; }

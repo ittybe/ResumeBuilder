@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ResumeBuilderLib</name>
+    </assembly>
+    <members>
+        <member name="T:ResumeBuilderLib.Building.IPDFBuilder">
+            <summary>
+            resume builder to pdf format
+            </summary>
+        </member>
+        <member name="M:ResumeBuilderLib.Building.IPDFBuilder.Build(ResumeBuilderLib.Templates.ITemplate,System.String)">
+            <summary>
+            build pdf file from template to outputpath
+            </summary>
+            <param name="template">resume template</param>
+            <param name="outputpath">output path</param>
+        </member>
+        <member name="T:ResumeBuilderLib.Elements.ElementDocument">
+            <summary>
+            abstract class
+            </summary>
+        </member>
+        <member name="T:ResumeBuilderLib.Elements.ImageDocument">
+            <summary>
+            image document
+            </summary>
+        </member>
+        <member name="P:ResumeBuilderLib.Elements.ImageDocument.Filepath">
+            <summary>
+            filepath to image
+            </summary>
+        </member>
+        <member name="T:ResumeBuilderLib.Elements.InfoBlockDocument">
+            <summary>
+            info block format list 
+            </summary>
+        </member>
+        <member name="P:ResumeBuilderLib.Elements.InfoBlockDocument.Header">
+            <summary>
+            header of list
+            </summary>
+        </member>
+        <member name="P:ResumeBuilderLib.Elements.InfoBlockDocument.Info">
+            <summary>
+            string list for listing this info in pdf file 
+            </summary>
+        </member>
+        <member name="T:ResumeBuilderLib.Elements.TextDocument">
+            <summary>
+            text in document
+            </summary>
+        </member>
+        <member name="P:ResumeBuilderLib.Elements.TextDocument.Text">
+            <summary>
+            text
+            </summary>
+        </member>
+        <member name="T:ResumeBuilderLib.Templates.ITemplate">
+            <summary>
+            template for document pdf
+            (template also contains ElementDocument objects)
+            </summary>
+        </member>
+        <member name="M:ResumeBuilderLib.Templates.ITemplate.GetElements">
+            <summary>
+            get pdf itext package elements
+            </summary>
+            <returns>elements to PDFBuilder</returns>
+        </member>
+    </members>
+</doc>

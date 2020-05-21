@@ -7,6 +7,7 @@ namespace ResumeBuilderLib.Elements
     /// <summary>
     /// text in document
     /// </summary>
+    [Serializable]
     public class TextDocument : ElementDocument
     {
         /// <summary>

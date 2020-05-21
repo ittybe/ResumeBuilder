@@ -8,10 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Menu IsMainMenu="True">
-            <MenuItem Header="_File"></MenuItem>
-            <MenuItem Header=""></MenuItem>
-            <MenuItem></MenuItem>
-            <MenuItem></MenuItem>
+            <MenuItem Header="_File">
+                <MenuItem Header="Create" InputGestureText="Ctrl+N" Click="Create_Click"></MenuItem>
+                <MenuItem Header="Open" InputGestureText="Ctrl+O" Click="Open_Click"></MenuItem>
+                <MenuItem Header="Close all windows" InputGestureText="Ctrl+L" Click="Open_Click"></MenuItem>
+            </MenuItem>
         </Menu>
     </Grid>
 </Window>

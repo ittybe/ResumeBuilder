@@ -10,32 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ResumeBuilderGui
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TextDocumentWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TextDocumentWindow : Window
     {
-        public MainWindow()
+        public string Text { get { return textBox.Text; } }
+        public TextDocumentWindow()
         {
             InitializeComponent();
-            
         }
 
-        private void Create_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            WorkTemplateWindow window = new WorkTemplateWindow();
-            window.ShowActivated = true;
-            window.Show();
-        }
-
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-            
+            DialogResult = true;
         }
     }
 }
