@@ -91,8 +91,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SelectTemplateWindow.xaml.cs">
+      <DependentUpon>SelectTemplateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextDocumentWindow.xaml.cs">
       <DependentUpon>TextDocumentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkTemplate2Window.xaml.cs">
+      <DependentUpon>WorkTemplate2Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="WorkTemplateWindow.xaml.cs">
       <DependentUpon>WorkTemplateWindow.xaml</DependentUpon>
@@ -109,7 +115,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SelectTemplateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TextDocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkTemplate2Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
