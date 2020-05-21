@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using ResumeBuilderLib.Templates;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,7 +39,23 @@ namespace ResumeBuilderGui
 
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "resume builder file(*.rmsbldr)|*.rmsbldr|All files(*.*)|*.*";
+
+            if (open.ShowDialog() == true) 
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                WorkTemplate template = new WorkTemplate();
+                // десериализация
+                using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
+                {
+                    template = (WorkTemplate)formatter.Deserialize(fs);
+                }
+                WorkTemplateWindow window = new WorkTemplateWindow(template);
+                window.ShowActivated = true;
+                window.Show();
+            }
         }
     }
 }

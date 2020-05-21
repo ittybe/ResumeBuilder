@@ -16,7 +16,7 @@ namespace ResumeBuilderLib.Templates
     {
         [NonSerialized]
         private PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
-        private PdfFont Font { get { return font; } set { font = value; } }
+        public PdfFont Font { get { return font; } set { font = value; } }
         //private PdfFont Font { get; set; } = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
 
         public float FontSize { get; set; } = 16;

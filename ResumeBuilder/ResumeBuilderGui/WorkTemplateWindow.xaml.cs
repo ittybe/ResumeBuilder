@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using Microsoft.Win32;
+using ResumeBuilderLib.Building;
 using ResumeBuilderLib.Templates;
 using System;
 using System.Collections.Generic;
@@ -26,11 +29,21 @@ namespace ResumeBuilderGui
         public FileInfo FocusedFile { get; set; } = null;
 
         private FileInfo imagePath;
-        public WorkTemplate Template { get; set; }
+        public WorkTemplate Template { get; set; } = new WorkTemplate();
         public WorkTemplateWindow()
         {
             InitializeComponent();
-            Template = new WorkTemplate();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filepath">savefile</param>
+        public WorkTemplateWindow(WorkTemplate template)
+        {
+            InitializeComponent();
+            Template = template;
+            UndumpTemplate();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,13 +51,16 @@ namespace ResumeBuilderGui
 
         }
 
+
+        
+
         private void SetImage_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 OpenFileDialog open = new OpenFileDialog();
                 open.Filter = "png image (*.png)|*.png|jpg image (*.jpg)|*.jpg|All files (*.*)|*.*";
-                if (open.ShowDialog() == true) 
+                if (open.ShowDialog() == true)
                 {
                     profileImage.Source = new BitmapImage(new Uri(open.FileName));
                     imagePath = new FileInfo(open.FileName);
@@ -61,7 +77,7 @@ namespace ResumeBuilderGui
             try
             {
                 TextDocumentWindow text = new TextDocumentWindow();
-                if (text.ShowDialog() == true) 
+                if (text.ShowDialog() == true)
                 {
                     expListBox.Items.Add(text.Text);
                 }
@@ -112,7 +128,7 @@ namespace ResumeBuilderGui
             }
         }
 
-        private void Save() 
+        private void Save()
         {
             DumpTemplate();
             BinaryFormatter formatter = new BinaryFormatter();
@@ -125,41 +141,70 @@ namespace ResumeBuilderGui
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (IsDataInvalid())
             {
-                if (FocusedFile == null)
+                try
                 {
-                    SaveFileDialog save = new SaveFileDialog();
-                    save.Filter = "resume builder file(*.rmsbldr)|*.rmsbldr|All files(*.*)|*.*";
-                    if (save.ShowDialog() == true)
+                    if (FocusedFile == null)
                     {
-                        FocusedFile = new FileInfo(save.FileName);
+                        SaveFileDialog save = new SaveFileDialog();
+                        save.Filter = "resume builder file(*.rmsbldr)|*.rmsbldr|All files(*.*)|*.*";
+                        if (save.ShowDialog() == true)
+                        {
+                            FocusedFile = new FileInfo(save.FileName);
+                            Save();
+                        }
+                    }
+                    else
+                    {
                         Save();
                     }
                 }
-                else 
+                catch (Exception exc)
                 {
-                    Save();
+                    MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            catch (Exception exc)
+            else 
             {
-                MessageBox.Show(exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fill all data boxes!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
+            if (IsDataInvalid()) 
+            {
+                try
+                {
+                    PDFBuilder builder = new PDFBuilder();
+                    SaveFileDialog save = new SaveFileDialog();
+                    save.Filter = "pdf files (*.pdf)|*.pdf";
 
+                    if (save.ShowDialog() == true)
+                    {
+                        DumpTemplate();
+                        builder.Build(Template, save.FileName);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.StackTrace + "\n" + exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fill all data boxes!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void DumpTemplate() 
+        private void DumpTemplate()
         {
             // Experience
             List<string> tempList = new List<string>();
             Template.Experience.Header = "Experience";
 
-            foreach (var item in expListBox.Items)      
+            foreach (var item in expListBox.Items)
             {
                 tempList.Add(item.ToString());
             }
@@ -186,6 +231,65 @@ namespace ResumeBuilderGui
 
             // Birthday
             Template.Birthday.Text = birthdayBox.Text;
+        }
+
+        private void UndumpTemplate()
+        {
+            // Experience
+            List<string> tempList = new List<string>();
+            try
+            {
+                foreach (var item in Template.Experience.Info)
+                {
+                    expListBox.Items.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            try
+            {
+                // ProfileImage
+                imagePath = new FileInfo(Template.ProfileImage.Filepath);
+                profileImage.Source = new BitmapImage(new Uri(Template.ProfileImage.Filepath));
+            }
+            catch (Exception)
+            {
+            }            
+            
+            // Name
+            nameBox.Text = Template.Name.Text;
+            try
+            {
+                // ContactInfo
+                foreach (var item in Template.ContactInfo.Info)
+                {
+                    contactListBox.Items.Add(item);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            
+            // Birthday
+            birthdayBox.Text = Template.Birthday.Text;
+
+            Template.Font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+        }
+        private bool IsDataInvalid()
+        {
+            if (imagePath == null)
+                return false;
+            else if (expListBox.Items.Count < 1)
+                return false;
+            else if (contactListBox.Items.Count < 1)
+                return false;
+            else if (string.IsNullOrWhiteSpace(nameBox.Text) == true)
+                return false;
+            else if (string.IsNullOrWhiteSpace(birthdayBox.Text) == true)
+                return false;
+            return true;
         }
     }
 }
