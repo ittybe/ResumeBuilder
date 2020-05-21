@@ -32,9 +32,8 @@ namespace ResumeBuilderGui
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            WorkTemplateWindow window = new WorkTemplateWindow();
-            window.ShowActivated = true;
-            window.Show();
+            SelectTemplateWindow window = new SelectTemplateWindow();
+            window.ShowDialog();
         }
 
         private void Open_Click(object sender, RoutedEventArgs e)
@@ -46,15 +45,24 @@ namespace ResumeBuilderGui
             {
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                WorkTemplate template = new WorkTemplate();
+                object template;
                 // десериализация
                 using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
                 {
-                    template = (WorkTemplate)formatter.Deserialize(fs);
+                    template = formatter.Deserialize(fs);
                 }
-                WorkTemplateWindow window = new WorkTemplateWindow(template);
-                window.ShowActivated = true;
-                window.Show();
+                if (template is WorkTemplate)
+                {
+                    WorkTemplateWindow window = new WorkTemplateWindow((WorkTemplate)template);
+                    window.ShowActivated = true;
+                    window.Show();
+                }
+                else if (template is WorkTemplate2)
+                {
+                    WorkTemplate2Window window = new WorkTemplate2Window((WorkTemplate2)template);
+                    window.ShowActivated = true;
+                    window.Show();
+                }
             }
         }
     }

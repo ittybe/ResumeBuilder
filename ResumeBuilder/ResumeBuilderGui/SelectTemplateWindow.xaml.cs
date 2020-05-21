@@ -26,12 +26,16 @@ namespace ResumeBuilderGui
 
         private void WorkTemplate_Click(object sender, RoutedEventArgs e)
         {
-
+            WorkTemplateWindow window = new WorkTemplateWindow();
+            window.ShowActivated = true;
+            window.Show();
         }
 
         private void WorkTemplate2_Click(object sender, RoutedEventArgs e)
         {
-
+            WorkTemplate2Window window = new WorkTemplate2Window();
+            window.ShowActivated = true;
+            window.Show();
         }
     }
 }
